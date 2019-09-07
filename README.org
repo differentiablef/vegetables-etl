@@ -1,6 +1,6 @@
 #+DATE: 2019/09/07
 * Extract, Transform, and Load (ETL)
-The normal ETL design pattern is as 
+The normal ETL pattern goes as follows
 
 - Extraction of information :: extract data from different sources (using web-scraping, api, ..)
 - Transform and Aggregate :: Clean and collect extracted data into a usable and contextually appropriate form.
