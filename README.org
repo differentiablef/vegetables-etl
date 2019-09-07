@@ -1,5 +1,4 @@
 #+DATE: 2019/09/07
-#+TITLE: "ETL Project"
 * Extract, Transform, and Load (ETL)
 The normal ETL design pattern is as 
 
