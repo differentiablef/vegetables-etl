@@ -21,7 +21,7 @@ Each member of the group will be responsible for extracting, aggregating, and tr
 In particular the work will be divided as follows,
 - Sonal Panchal :: Commodity Prices
 - Edwin Banks :: Consumption
-- Michael Blackmon :: Social Media 
+- Michael Blackmon :: Social Media Mentions 
 - Mohammad Sami :: Nutrient Content
 - Jerry Greenough :: Recipes
 - Lina Kalala :: Images
