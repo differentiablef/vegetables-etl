@@ -1,0 +1,28 @@
+#+DATE: 2019/09/07
+#+TITLE: "ETL Project"
+* Extract, Transform, and Load (ETL)
+The normal ETL design pattern is as 
+
+- Extraction of information :: extract data from different sources (using web-scraping, api, ..)
+- Transform and Aggregate :: Clean and collect extracted data into a usable and contextually appropriate form.
+- Load and Store :: Load the prepared data into a database.
+
+The intent is for relavent information to be made easily available for integration with other processes. For this ETL project, we will be concerned with information relating to the following vegetables:
+
+ * Asparagus
+ * Broccoli
+ * Squash
+ * Spinach
+
+The goal is to aggregate data from a set of relevant sources, extracting anything with connections to one of those vegetables, then storing the results in a uniform way using MongoDB.
+
+* Data Collection
+Each member of the group will be responsible for extracting, aggregating, and transforming one type of relavent information. 
+
+In particular the work will be divided as follows,
+- Sonal Panchal :: Commodity Prices
+- Edwin Banks :: Consumption
+- Michael Blackmon :: Social Media 
+- Mohammad Sami :: Nutrient Content
+- Jerry Greenough :: Recipes
+- Lina Kalala :: Images
