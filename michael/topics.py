@@ -10,7 +10,7 @@ words = \
 
 # beginning and end of region of dates we care about
 
-begin = datetime(2015, 1, 1).\
+begin = datetime(2018, 9, 1).\
     replace(tzinfo=timezone.utc)
 
 end = datetime.utcnow()

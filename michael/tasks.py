@@ -12,7 +12,7 @@ from multiprocessing import Pool
 
 # ### methods ##################################################################
 
-def store_objects(path, obj, delimiter=','):
+def store_objects(path, obj, delimiter='\n'):
     # if the file doesn't exist, 
     if not os.path.isfile(path):
         # then don't include the delimiter
@@ -81,7 +81,6 @@ def collect_results(p):
             get_objects(url, params)
         store_objects(path, data)
         pass
-
 
 def main():
     # number of objects to request in a batch
