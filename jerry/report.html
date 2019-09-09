@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Vegetables</title>
+</head>
+
+<body>
+
+<h1>Vegetable Report</h1>
+
+<h2>Recipes</h2>
+
+<p>The objective was to extract recipes for our featured vegetables from multiple websites and thereafter create a MongoDB collection
+containing said recipes.</p>
+
+<p>The data extraction process required an analysis of the html output of two sites namely, allrecipes.com and simplyrecipes.com.
+The html text was acquired using the python 'requests' library. The text itself was parsed using 'Beautiful Soup' once a basic
+understanding of the underlying html used by each site had been acquired.</p>
+
+<p>The continued scraping and mis-scraping process brought about some unforseen problems with the Bitdefender 
+anti-viral software. In addition, the server used for the simplyrecipes.com site did not entertain numerous searches for the same
+vegetable and is now regularly returning status code 403 'Forbidden'.</p>
+
+<p>The results of the scrape were subsequently transformed into a series of recipe dictionaries, 
+with each dictionary containing a field for a title, a summary, a URL for an image of the finished recipe as well as a URL
+that contains content for the recipe's method. In addition, a 'featured vegetable' field identifies the featured vegetable
+that is associated with the recipe.</p>
+
+<p>Very little data cleaning was required after data extraction, save for the trimming of a few strings.</p>
+
+<p>A 'Recipes' collection was added to an ETL database in MongoDB with the use of the 'pymongo' library. Each document in
+the collection corresponds to one of over 100 vegetable-related recipes that were collected during the data extraction phase.</p>
+
+<img src="./Mongo_recipes.png" style="width:650px">
+
+<h2>Nutrition</h2>
+
+<p>The objective was to extract nutritional information for our featured vegetables from various pages at wikipedia and
+subsequently create a MongoDB collection containing the nutritional data.</p>
+
+<p>The data extraction process made use of some scraping functionality from the 'pandas' library, namely 'read_html'.
+The read_html function returns a data frame for each of the tables contained on the relevant web-page. The initial 
+task was to identify the table from this list whose first column name contained the word "Nutritional."</p>
+
+<p>Each dataframe that was created in this way required some cleaning to removed 'na' data as well as rows of data 
+that contained only uninformative data that were not germane to vegetables and nutrition.</p>
+
+<p>The result of this process was a list of dataframes corresponding to each of our featured vegetables, plus a few more. The 
+nutritional data was then aggregated into a single master dataframe by way of a sequence of inner joins using the pandas 'merge'
+function - each column of the master dataframe contained data pertaining to a certain vegetable. 
+This enabled the juxtaposition of data that was shared by all of the source tables, and thus facilitated comparison of 
+nutritional aspects of all featured vegetables.</p>
+
+<p>The next task was to use the pandas 'to_dict' function to convert each column of thr data frame into a dictionary that
+could then be used to add data to MongoDB. A 'Nutrition' collection was added to an ETL database in MongoDB with the 
+use of the 'pymongo' library. Each document in
+the collection corresponds to a different vegetable, the vegetable itself identified  the 'Name' field.</p>
+
+<img src="./Magnesium_Content.png" style="width:450px">
+
+</body>
+
+</html>
+
+
