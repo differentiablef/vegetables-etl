@@ -13,6 +13,7 @@ words = \
 begin = datetime(2018, 9, 1).\
     replace(tzinfo=timezone.utc)
 
-end = datetime.utcnow()
+end = datetime(2019, 9, 1).\
+    replace(tzinfo=timezone.utc)
 
 

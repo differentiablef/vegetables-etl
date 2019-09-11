@@ -3,8 +3,10 @@
 # local
 from topics import words, begin, end
 
-# standard lib
+# standard libs
 import requests, sys, os, time, json
+import numpy as np
+import pymongo
 from datetime import timezone, datetime
 
 # parallel lib
@@ -82,6 +84,30 @@ def collect_results(p):
         store_objects(path, data)
         pass
 
+def load_dailys(p):
+    """ compute and load (into mongodb) the total number of mentions for `word`
+        for each day of the time window """
+    path, unit, word, after, before = p
+    
+    # load data from json file
+    data = []
+    with open(path) as infile:
+        for entry in infile:
+            data.extend(json.loads(entry))
+
+    bins = np.arange(after, before+1, 24*60**2)
+    times = [ x.get('created_utc') for x in data ]
+    hist, _ = np.histogram( times, bins=bins )
+
+    rows = [ { 'word': word, 'type': unit, 'datetime_utc': t,  'mentions': h } \
+             for h,t in zip(hist,bins[1:]) ]
+
+    # connect to and store daily-mention count in a mongodb
+    client = pymongo.MongoClient('mongodb://localhost:27017')
+    db = client.ETL
+    db.mentions.insert_many( rows )
+    pass
+    
 def main():
     # number of objects to request in a batch
     batch_size = 500
@@ -89,10 +115,10 @@ def main():
     # begin & end time as UTC ts.
     epoc = \
         int(begin.timestamp())
-
+    
     apoc = \
         int(end.timestamp())
-
+    
     # pushshift.io reddit api endpoints
     apis = {
         'https://api.pushshift.io/reddit/search/': {
@@ -124,17 +150,28 @@ def main():
 
             # build list of tasks
             args = []
+            args1 = []
             for word in words:
                 params = apis[url][endpoint].copy()
                 params['q'] = word
-                
+
+                # task type: extract results
                 args.append( 
                     (f'./imports/{endpoint}-{word}.json',
                      epoc, apoc,
                      url+endpoint, params))
-            
+                
+                # task type: transform and load into mongo
+                args1.append(
+                    (f'./imports/{endpoint}-{word}.json',
+                     endpoint,
+                     word,
+                     epoc, apoc))
+                
             # assign tasks to the workers and wait
+            #  (this is not optimal, should use async)
             workers.map( collect_results, args )
+            workers.map( load_dailys, args1 )
 
 # ## script entry-point ########################################################
 
