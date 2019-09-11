@@ -100,7 +100,10 @@ def load_dailys(p):
     times = [ x.get('created_utc') for x in data ]
     hist, _ = np.histogram( times, bins=bins )
 
-    rows = [ { 'word': word, 'type': unit, 'datetime_utc': t,  'mentions': h } \
+    rows = [ { 'word': word,
+               'type': unit,
+               'datetime_utc': int(t),
+               'mentions': int(h) } \
              for h,t in zip(hist,bins[1:]) ]
 
     # connect to and store daily-mention count in a mongodb
