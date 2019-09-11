@@ -10,6 +10,7 @@
 <h1>Vegetable Report</h1>
 
 <h2>Recipes</h2>
+<h3>Jerry/Recipes.ipynb</h3>
 
 <p>The objective was to extract recipes for our featured vegetables from multiple websites and thereafter create a MongoDB collection
 containing said recipes.</p>
@@ -35,6 +36,7 @@ the collection corresponds to one of over 100 vegetable-related recipes that wer
 <img src="./Mongo_recipes.png" style="width:650px">
 
 <h2>Nutrition</h2>
+<h3>Jerry/Nutrition.ipynb</h3>
 
 <p>The objective was to extract nutritional information for our featured vegetables from various pages at wikipedia and
 subsequently create a MongoDB collection containing the nutritional data.</p>
@@ -60,6 +62,7 @@ the collection corresponds to a different vegetable, the vegetable itself identi
 <img src="./Magnesium_Content.png" style="width:450px">
 
 <h2>Consumption and Production of Asparagus</h2>
+<h3>Jerry/Consumption_Production.ipynb</h3>
 
 <p>The objective was to search for consumption and production data for asparagus from various pages and
 subsequently create a MongoDB collection containing datasets that could be used for subsequent graphing.</p>
@@ -92,6 +95,26 @@ The nature of the plot is identified by the 'Title' field.</p>
 
 <img src="./Asparagus_Consumption.png" style="width:450px">
 <img src="./Asparagus_Production.png" style="width:450px">
+
+<h2>Images</h2>
+<h3>LINA -IMAGES/images.ipynb</h3>
+
+<p>The objective was to search for images (or links to images) for our featured vegetables and
+subsequently to create a MongoDB collection containing posts that referred to said images.</p>
+
+<p>The source of the images was www.google.com. The Google API was used in conjunction with the python 'requests' 
+library to obtain html from a URL query. Fo example, to search for images of squash: https://www.google.com/search?tbm=isch&q=squash.
+The 'Beautiful Soup' library was used to parse the returned html.</p>
+
+<p>The result of the parsing was a 'post' that was cfeated for each image tht was returned in the html. The post contains 
+(i) a summary description of the image, (ii) a URL to the image itself and (iii) a URL for the website that contains the image.
+Each post is represented by a dictionary containing the keys, "title", "URL" and "website". Each post was added to a list of posts called 'list-image'.
+A pandas dataframe was created from the image list and subsequently exported to a CSV file (IG.csv) using the pandas 
+'to_csv' function. </p>
+
+<p>The posts contained in list_image were added to MongoDB collection called 'image' using the 'insert_many' command. </p>
+
+<img src="./images.png" style="width:850px">
 
 </body>
 
