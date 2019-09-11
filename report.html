@@ -9,6 +9,43 @@
 
 <h1>Vegetable Report</h1>
 
+<img src="./jerry/Squash.jpg" style="width:450px">
+
+<h2>Introduction</h2>
+
+<p>
+For this ETL project, we will be concerned with information relating to vegetables, with particular emphasis
+placed on the following featured vegetable set: </p>
+
+<p style="text-indent: 40px"> &bull; Asparagus </p>
+<p style="text-indent: 40px"> &bull; Broccoli </p>
+<p style="text-indent: 40px"> &bull; Squash </p>
+<p style="text-indent: 40px"> &bull; Spinach </p>
+
+<p>
+The goal is to aggregate data from a set of relevant sources, extracting anything with connections to one of those vegetables, 
+then storing the results in a uniform way using MongoDB. </p>
+
+<h2>Data Collection</h2>
+<p>
+Each member of the group will be responsible for extracting, aggregating, 
+and transforming one type of relavent information. </p>
+
+<p>
+In particular the work will be divided as follows:
+</p>
+
+
+<p style="text-indent: 40px"> &bull; Sonal Panchal :: Commodity Prices </p>
+<p style="text-indent: 40px"> &bull; Edwin Banks :: Consumption and Production</p>
+<p style="text-indent: 40px"> &bull; Michael Blackmon :: Social Media Mentions  </p>
+<p style="text-indent: 40px"> &bull; Mohammad Sami :: Nutrient Content </p>
+<p style="text-indent: 40px"> &bull; Jerry Greenough :: Recipes </p>
+<p style="text-indent: 40px"> &bull; Lina Kalala :: Images </p>
+
+<p> Each work category is now listed under the relevant heading, followed immediately by the subfolder that houses
+a record of any programming work and associated data.</p>
+
 <h2>Recipes</h2>
 <h3>Jerry/Recipes.ipynb</h3>
 
@@ -36,7 +73,7 @@ the collection corresponds to one of over 100 vegetable-related recipes that wer
 <img src="./jerry/Mongo_recipes.png" style="width:650px">
 
 <h2>Nutrition</h2>
-<h3>Jerry/Nutrition.ipynb</h3>
+<h3>Sami/*.ipynb + Jerry/Nutrition.ipynb</h3>
 
 <p>The objective was to extract nutritional information for our featured vegetables from various pages at wikipedia and
 subsequently create a MongoDB collection containing the nutritional data.</p>
@@ -88,7 +125,7 @@ since 1980. It is therefore safe to conclude that the decrease in asparagus prod
 could then be used to add data to MongoDB. A little care was required during the conversion process as the MongoDB 'insert' functionality 
 does not accept dictionaries (or even sub-dictionaries) that have integer keys. This problem was circumvented using the 'list' 
 option for the 'to_dict' function.
-A 'Consumption_And_Production' collection was added to an ETL database in MongoDB with the 
+A 'Consumption_And_Production' collection was added to the ETL database in MongoDB with the 
 use of the 'pymongo' library. Each document in
 the collection corresponds to a different dataset that was used for each of the line plots.
 The nature of the plot is identified by the 'Title' field.</p>
@@ -105,7 +142,8 @@ subsequently to create a MongoDB collection containing posts that referred to sa
 <p>The source of the images was www.google.com. The Google API was used in conjunction with the python 'requests' 
 library to obtain html from a URL query. Fo example, to search for images of squash the following URL was used: <br>
 https://www.google.com/search?tbm=isch&q=squash<br>
-The 'Beautiful Soup' library was used to parse the returned html.</p>
+The 'Beautiful Soup' library was used to parse the returned html in conjunction with cleaning functions such as decompose() and
+split().</p>
 
 <p>The result of the parsing was a 'post' that was cfeated for each image tht was returned in the html. The post contains 
 (i) a summary description of the image, (ii) a URL to the image itself and (iii) a URL for the website that contains the image.
@@ -116,6 +154,42 @@ A pandas dataframe was created from the image list and subsequently exported to 
 <p>The posts contained in list_image were added to MongoDB collection called 'image' using the 'insert_many' command. </p>
 
 <img src="./jerry/images.png" style="width:850px">
+
+
+<h2>Social Media Mentions</h2>
+<h3>michael/notes-extract-transform.ipynb</h3>
+
+<p>
+The objective was to scrape the social news site 'Reddit' for mentions of the featured vegetable set over a certain period of time,
+namely 4/1/2019 through 4/20/2019. 
+</p>
+
+<p>
+Comments and posts from reddit containing a reference to one of the vegetables of interest were made using 
+the API kindly provided by http://pushshift.io/. Particular was made only on those comments/posts created within the last year. 
+'Before' and 'after' UTC time-stamps were created to represent the period of interest.
+</p>
+ 
+<p>
+Looping over each featured vegetable, results were collected from the time interval defined by 'before' and 'after' 
+by walking through the responses to GET requests sent to the URL https://api.pushshift.io/reddit/search/.
+The URL contained additional parameters required to represent the 'before' and 'after' times as well as the batch size
+for the extracted data. </p>
+
+<p>
+Once the amount of data returns for each featured vegetable was determined,
+ a histogram was generated for each vegetable using binned data for the number of mentions/ comments / posts made 
+for each 24 hour period of the overall period of interest. The matplotlib and numpy libraries were used in generating the plots,
+which can be viewed below.
+</p>
+
+<p> A 'Mentions' collection was added to the ETL database in MongoDB with the 
+use of the 'pymongo' library. Each document in
+the collection corresponds to a dictionary created to represent the data inside each of the previously
+mentioned histograms, together with additional fields to identify the featured vegetable as well as the 
+number of mentions for the pertinent time period.</p>
+
+<img src="./jerry/reddit.png" style="width:550px">
 
 <h2>Commodity Prices</h2>
 <h3>Sonal/*.csv</h3>
