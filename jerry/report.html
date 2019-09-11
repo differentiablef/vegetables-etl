@@ -52,12 +52,46 @@ function - each column of the master dataframe contained data pertaining to a ce
 This enabled the juxtaposition of data that was shared by all of the source tables, and thus facilitated comparison of 
 nutritional aspects of all featured vegetables.</p>
 
-<p>The next task was to use the pandas 'to_dict' function to convert each column of thr data frame into a dictionary that
+<p>The next task was to use the pandas 'to_dict' function to convert each column of the data frame into a dictionary that
 could then be used to add data to MongoDB. A 'Nutrition' collection was added to an ETL database in MongoDB with the 
 use of the 'pymongo' library. Each document in
-the collection corresponds to a different vegetable, the vegetable itself identified  the 'Name' field.</p>
+the collection corresponds to a different vegetable, the vegetable itself identified by the 'Name' field.</p>
 
 <img src="./Magnesium_Content.png" style="width:450px">
+
+<h2>Consumption and Production of Asparagus</h2>
+
+<p>The objective was to search for consumption and production data for asparagus from various pages and
+subsequently create a MongoDB collection containing datasets that could be used for subsequent graphing.</p>
+
+<p>The main source of information concerning asparagus production was the website www.factfish.com.
+The data extraction process made use of some scraping functionality from the 'pandas' library, namely 'read_html'.
+The read_html function returns a data frame for each of the tables contained on the relevant web-page. The data on the
+relevant webpage was organized in such a way that it was always the case that the second dataframe contained the production
+data. No cleaning or data preparation was required after the call to read_html.</p>
+
+<p>The source of information for asparagus consumption was from the USDA - ERS report 'AsparagusStats2010.pdf'. The USDA website
+contained tables stored in Excel spreadsheets, from which CSV files could be exported and subsequently processed by the Pandas library.
+A number of cleaning operations were required to identify the correct data. This data was not scraped, but was instead manually downloaded.</p>
+
+<p>Two sets of data were created. Firstly, the production of asparagus since 1961 for selected countries (Mexico, USA, Peru and China) was 
+stored in a Pandas dataframe. Secondly, the production of various vegetables in the USA since 1961 was stored in a Pandas dataframe.
+The matplotlib library was used to create line plots of asparagus production vs. year. It became evident that asparagus production in the
+USA has decreased steadily since 1961 to a fraction of original output. This was not a pattern that was repeated for the other featured 
+vegetables. Furthermore, the line plot of per capita consumption of asparagus in the USA suggests that demand has actually increased steadily
+since 1980. It is therefore safe to conclude that the decrease in asparagus production in the USA is not fuelled by lack of demand.</p>
+
+<p>The next task was to use the pandas 'to_dict' function to convert each column of the data frame into a dictionary that
+could then be used to add data to MongoDB. A little care was required during the conversion process as the MongoDB 'insert' functionality 
+does not accept dictionaries (or even sub-dictionaries) that have integer keys. This problem was circumvented using the 'list' 
+option for the 'to_dict' function.
+A 'Consumption_And_Production' collection was added to an ETL database in MongoDB with the 
+use of the 'pymongo' library. Each document in
+the collection corresponds to a different dataset that was used for each of the line plots.
+The nature of the plot is identified by the 'Title' field.</p>
+
+<img src="./Asparagus_Consumption.png" style="width:450px">
+<img src="./Asparagus_Production.png" style="width:450px">
 
 </body>
 
