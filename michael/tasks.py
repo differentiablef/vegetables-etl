@@ -86,7 +86,8 @@ def collect_results(p):
 
 def load_dailys(p):
     """ compute and load (into mongodb) the total number of mentions for `word`
-        for each day of the time window """
+        in social-media objects of type `unit` for each day of the
+        time window """
     path, unit, word, after, before = p
     
     # load data from json file
