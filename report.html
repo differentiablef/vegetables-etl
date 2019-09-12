@@ -165,21 +165,21 @@ namely 9/1/2018 through 9/1/2019.
 </p>
 
 <p>
-Comments and posts from reddit containing a reference to one of the vegetables of interest were made using 
-the API kindly provided by http://pushshift.io/. Particular was made only on those comments/posts created within the last year. 
-'Before' and 'after' UTC time-stamps were created to represent the period of interest.
+Comments and posts from reddit containing a reference to one of the vegetables of interest were collected 
+the API kindly provided by http://pushshift.io/. In particular we focused on only those comments/posts created within the last year. 
+Creating 'before' and 'after' UTC time-stamps to represent the period of interest.
 </p>
  
 <p>
 Looping over each featured vegetable, results were collected from the time interval defined by 'before' and 'after' 
-by walking through the responses to GET requests sent to the URL https://api.pushshift.io/reddit/search/.
+by walking through the responses to GET request sent to the URL https://api.pushshift.io/reddit/search/.
 The URL contained additional parameters required to represent the 'before' and 'after' times as well as the batch size
 for the extracted data. </p>
 
 <p>
-Once the amount of data returns for each featured vegetable was determined,
- a histogram was generated for each vegetable using binned data for the number of mentions/ comments / posts made 
-for each 24 hour period of the overall period of interest. The numpy library was used in generating the histogram. Moreover, matplotlib was used to generate example plots,
+Once data had been collected for each featured vegetable,
+a histogram was generated for each vegetable and type of socal-media post, binning the to get the number of mentions for each 24 hour period
+of the overall period of interest. The numpy library was used in generating the histogram. Moreover, matplotlib was used to generate example plots,
 which can be viewed below.
 </p>
 
